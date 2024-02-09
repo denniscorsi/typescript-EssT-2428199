@@ -3,7 +3,7 @@ interface Contact {
     name: string;
 }
 
-function clone(source: Contact): Contact {
+function clone<T>(source: T): T {
     return Object.apply({}, source);
 }
 
