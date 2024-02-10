@@ -1,36 +1,37 @@
-type ContactStatus = "active" | "inactive" | "new";
+type ContactStatus = 'active' | 'inactive' | 'new';
 
 interface Address {
-    street: string;
-    province: string;
-    postalCode: string;
+  street: string;
+  province: string;
+  postalCode: string;
 }
 
 interface Contact {
-    id: number;
-    name: string;
-    status: ContactStatus;
-    address: Address;
+  id: number;
+  name: string;
+  status: ContactStatus;
+  address: Address;
 }
 
 interface ContactEvent {
-    contactId: number;
+  contactId: Contact['id'];
 }
 
-interface ContactDeletedEvent extends ContactEvent { 
-}
+type Awesome = Contact['address']['street'];
 
-interface ContactStatusChangedEvent extends ContactEvent { 
-    oldStatus: ContactStatus;
-    newStatus: ContactStatus;
+interface ContactDeletedEvent extends ContactEvent {}
+
+interface ContactStatusChangedEvent extends ContactEvent {
+  oldStatus: Contact['status'];
+  newStatus: ContactStatus;
 }
 
 interface ContactEvents {
-    deleted: ContactDeletedEvent;
-    statusChanged: ContactStatusChangedEvent;
-    // ... and so on
+  deleted: ContactDeletedEvent;
+  statusChanged: ContactStatusChangedEvent;
+  // ... and so on
 }
 
 function getValue<T, U extends keyof T>(source: T, propertyName: U) {
-    return source[propertyName];
+  return source[propertyName];
 }
